@@ -11,6 +11,7 @@ import XMonad.Layout.ResizableTile
 --import XMonad.Layout.LayoutHints
 
 import XMonad.Actions.SwapWorkspaces
+import XMonad.Actions.Warp
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Run(spawnPipe)
@@ -152,7 +153,7 @@ addKeys =
     , ((mod4Mask          , xK_s ), spawn "~/bin/menu/shutdownmenu")
     , ((mod4Mask          , xK_v ), spawn "urxvtc -e alsamixer")
 
-    , ((mod4Mask              , xK_q), spawn "swarp 0 1080")
+    , ((mod4Mask              , xK_q), banishScreen LowerLeft)
     , ((mod4Mask .|. shiftMask, xK_q), spawn "")
     , ((mod4Mask .|. shiftMask .|. controlMask, xK_q), cleanStart)
     --, ((mod4Mask .|. shiftMask, xK_q), spawn "xmonad --recompile; xmonad --restart")
