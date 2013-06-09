@@ -15,7 +15,6 @@ import XMonad.Actions.Warp
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Run(spawnPipe)
---import XMonad.Util.NamedScratchpad
 
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
@@ -151,6 +150,7 @@ addKeys =
     , ((mod4Mask          , xK_o ), spawn "~/bin/menu/mpcmenu")
     , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find /home/sanford/shared/wallpapers/current -type f | shuf -n1)")
     , ((mod4Mask          , xK_s ), spawn "~/bin/menu/shutdownmenu")
+    , ((mod4Mask          , xK_u ), spawn "~/bin/menu/infomenu")
     , ((mod4Mask          , xK_v ), spawn "urxvtc -e alsamixer")
 
     , ((mod4Mask              , xK_q), banishScreen LowerLeft)
