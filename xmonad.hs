@@ -85,8 +85,8 @@ makeDmenu p = "dmenu_run" ++
 
 dmenuCmd  = makeDmenu "Run:"
 
-dzenBar   = "dzen2 -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
-dzenBar2  = "conky -c /home/sanford/.xmonad/dzenConky | dzen2 -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+dzenBar   = "dzen2 -e '' -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+dzenBar2  = "conky -c /home/sanford/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
 
 ------------------------------------------------------------------------
 -- Layouts
