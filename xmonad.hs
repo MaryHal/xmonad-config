@@ -75,6 +75,7 @@ myFocusedBorderColor = purple
 ------------------------------------------------------------------------
 -- Bars and Helpers
 --
+makeDmenu :: String -> String
 makeDmenu p = "dmenu_run" ++
               " -fn '" ++ myFont     ++ "'" ++
               " -nf '" ++ foreground ++ "'" ++
@@ -136,8 +137,8 @@ myManageHook = mainManageHook -- <+> namedScratchpadManageHook myScratchPads
 -- Key Bindings
 --
 
--- | Kill (@-9@) any running dzen and conky processes before executing
---   the default restart command, this is a good @M-q@ replacement.
+-- kill -9 any running dzen and conky processes before executing
+-- the default restart command, this is a good @M-q@ replacement.
 cleanStart :: MonadIO m => m ()
 cleanStart = spawn $ "for pid in `pgrep conky`; do kill -9 $pid; done && "
                   ++ "for pid in `pgrep dzen2`; do kill -9 $pid; done && "
