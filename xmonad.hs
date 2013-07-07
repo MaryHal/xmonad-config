@@ -87,7 +87,7 @@ makeDmenu p = "dmenu_run" ++
 dmenuCmd  = makeDmenu "Run:"
 
 dzenBar   = "dzen2 -e '' -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
-dzenBar2  = "conky -c /home/sanford/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+dzenBar2  = "conky -c ~/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -149,7 +149,7 @@ addKeys =
     [ ((mod4Mask          , xK_p ), spawn dmenuCmd)
     , ((mod4Mask          , xK_m ), spawn "~/bin/menu/menumenu")
     , ((mod4Mask          , xK_o ), spawn "~/bin/menu/mpcmenu")
-    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find /home/sanford/shared/wallpapers/current -type f | shuf -n1)")
+    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find ~/shared/wallpapers/current -type f | shuf -n1)")
     , ((mod4Mask          , xK_s ), spawn "~/bin/menu/shutdownmenu")
     , ((mod4Mask          , xK_u ), spawn "~/bin/menu/infomenu")
     , ((mod4Mask          , xK_v ), spawn "urxvtc -e alsamixer")
