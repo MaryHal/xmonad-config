@@ -149,7 +149,7 @@ addKeys =
     [ ((mod4Mask          , xK_p ), spawn dmenuCmd)
     , ((mod4Mask          , xK_m ), spawn "~/bin/menu/menumenu")
     , ((mod4Mask          , xK_o ), spawn "~/bin/menu/mpcmenu")
-    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find ~/shared/wallpapers/current -type f | shuf -n1)")
+    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find /media/shared/wallpapers/current -type f | shuf -n1)")
     , ((mod4Mask          , xK_s ), spawn "~/bin/menu/shutdownmenu")
     , ((mod4Mask          , xK_u ), spawn "~/bin/menu/infomenu")
     , ((mod4Mask          , xK_v ), spawn "urxvtc -e alsamixer")
