@@ -1,9 +1,11 @@
 # conkyrc file for dzen
 ###
 
-background no
+short_units yes
+background yes
 out_to_console yes
 out_to_x no
+
 override_utf8_locale no
 update_interval 60
 total_run_times 0

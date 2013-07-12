@@ -26,22 +26,21 @@ import Graphics.X11.ExtraTypes.XF86
 -- Main
 --
 main = do
-    d <- spawnPipe dzenBar
-    dzenRightBar <- spawnPipe dzenBar2
+  dzenLeftBar  <- spawnPipe myXmonadBar
+  dzenRightBar <- spawnPipe myStatusBar
 
-    --xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-        { startupHook        = setWMName "LG3D"
-        , modMask            = mod4Mask
-        , terminal           = myTerminal
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormalBorderColor
-        , focusedBorderColor = myFocusedBorderColor
-        , logHook            = myLogHook d
-        , workspaces         = myWorkspaces
-        , manageHook         = myManageHook
-        , layoutHook         = myLayout
-        } `additionalKeys` addKeys
+  xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+      { startupHook        = setWMName "LG3D"
+      , modMask            = myModMask
+      , terminal           = myTerminal
+      , borderWidth        = myBorderWidth
+      , normalBorderColor  = myNormalBorderColor
+      , focusedBorderColor = myFocusedBorderColor
+      , logHook            = myLogHook dzenLeftBar
+      , workspaces         = myWorkspaces
+      , manageHook         = myManageHook
+      , layoutHook         = myLayout
+      } `additionalKeys` addKeys
 
 ------------------------------------------------------------------------
 -- Options and Theme
@@ -54,7 +53,6 @@ myBorderWidth        = 2
 myWorkspaces = ["un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"]
 
 myFont = "DroidSans:bold:size=8"
---myFont = "-*-Terminus-medium-r-normal-*-12-*-*-*-*-*-iso8859-2"
 
 background   = "#1d1f21"
 current_line = "#282a2e"
@@ -86,8 +84,8 @@ makeDmenu p = "dmenu_run" ++
 
 dmenuCmd  = makeDmenu "Run:"
 
-dzenBar   = "dzen2 -e '' -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
-dzenBar2  = "conky -c ~/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+myXmonadBar = "dzen2 -e '' -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+myStatusBar = "conky -qc ~/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -137,7 +135,7 @@ myManageHook = mainManageHook -- <+> namedScratchpadManageHook myScratchPads
 -- Key Bindings
 --
 
--- kill -9 any running dzen and conky processes before executing
+-- kill any running dzen and conky processes before executing
 -- the default restart command, this is a good @M-q@ replacement.
 cleanStart :: MonadIO m => m ()
 cleanStart = spawn $ "for pid in `pgrep conky`; do kill -9 $pid; done && "
@@ -200,9 +198,8 @@ addKeys =
 --
 myLogHook h = dynamicLogWithPP $ defaultPP
             { ppCurrent = dzenColor purple background
-            --, ppHidden  = dzenColor foreground background
+            , ppHidden  = dzenColor foreground background
             , ppVisible = dzenColor purple background
-            , ppUrgent  = dzenColor background foreground . dzenStrip
 
             , ppLayout  = dzenColor purple "" . layoutNames
             , ppTitle   = dzenColor foreground "" . shorten 50
@@ -214,8 +211,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
             }
         where
         layoutNames x
-            | x == "ResizableTall" = "Tall"
-            -- | x == "Grid" = "Grid"
-            -- | x == "Full" = "Full"
+            -- | x == "ResizableTall" = "^i(/home/sanford/.xmonad/icons/tall.xbm)"
+            -- | x == "Full" = "^i(/home/sanford/.xmonad/icons/full.xbm)"
             | otherwise   = x
 
