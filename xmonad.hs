@@ -171,8 +171,8 @@ addKeys =
 
     , ((mod4Mask          , xK_Down) , spawn "amixer -q set 'Master' '1-'")
     , ((mod4Mask          , xK_Up)   , spawn "amixer -q set 'Master' '1+'")
-    , ((mod4Mask .|. controlMask , xK_Down) , spawn "amixer -q set 'Speaker' '1-'")
-    , ((mod4Mask .|. controlMask , xK_Up)   , spawn "amixer -q set 'Speaker' '1+'")
+    -- , ((mod4Mask .|. controlMask , xK_Down) , spawn "amixer -q set 'Speaker' '1-'")
+    -- , ((mod4Mask .|. controlMask , xK_Up)   , spawn "amixer -q set 'Speaker' '1+'")
 
     -- Other Keys
     , ((mod4Mask                  , xK_Print), spawn "scrot -e 'mv $f ~/tmp/'")
