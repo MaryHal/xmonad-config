@@ -50,7 +50,16 @@ myModMask            = mod4Mask
 myTerminal           = "urxvtc"
 myBorderWidth        = 2
 
-myWorkspaces = ["un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"]
+myWorkspaces = [ "un"
+               , "deux" 
+               , "trois" 
+               , "quatre" 
+               , "cinq" 
+               , "six" 
+               , "sept" 
+               , "huit" 
+               , "neuf" 
+               ]
 
 myFont = "DroidSans:bold:size=8"
 
@@ -147,7 +156,7 @@ addKeys =
     [ ((mod4Mask          , xK_p ), spawn dmenuCmd)
     , ((mod4Mask          , xK_m ), spawn "~/bin/menu/menumenu")
     , ((mod4Mask          , xK_o ), spawn "~/bin/menu/mpcmenu")
-    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find /media/shared/wallpapers/current -type f | shuf -n1)")
+    , ((mod4Mask          , xK_r ), spawn "feh --bg-fill $(find ~/docs/wallpapers/current -type f | shuf -n1)")
     , ((mod4Mask          , xK_s ), spawn "~/bin/menu/shutdownmenu")
     , ((mod4Mask          , xK_u ), spawn "~/bin/menu/infomenu")
     , ((mod4Mask          , xK_v ), spawn "urxvtc -e alsamixer")
@@ -197,21 +206,21 @@ addKeys =
 -- Logging/Status Bar
 --
 myLogHook h = dynamicLogWithPP $ defaultPP
-            { ppCurrent = dzenColor purple background
-            , ppHidden  = dzenColor foreground background
-            , ppVisible = dzenColor purple background
+            { ppCurrent = dzenColor purple background . pad
+            , ppHidden  = dzenColor foreground background . pad
+            , ppVisible = dzenColor purple background . pad
 
             , ppLayout  = dzenColor purple "" . layoutNames
             , ppTitle   = dzenColor foreground "" . shorten 50
 
-            , ppSep     = " | "
-            , ppWsSep   = " "
+            , ppSep     = "  "
+            , ppWsSep   = ""
             , ppOutput  = hPutStrLn h
             , ppOrder   = \(ws:l:_:_) -> [ws,l]
             }
         where
         layoutNames x
-            -- | x == "ResizableTall" = "^i(/home/sanford/.xmonad/icons/tall.xbm)"
-            -- | x == "Full" = "^i(/home/sanford/.xmonad/icons/full.xbm)"
+            | x == "ResizableTall" = "^i(/home/sanford/.xmonad/icons/tile.xbm)"
+            | x == "Full" = "^i(/home/sanford/.xmonad/icons/float.xbm)"
             | otherwise   = x
 
