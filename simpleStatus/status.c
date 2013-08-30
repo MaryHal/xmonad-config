@@ -11,6 +11,8 @@
 #define CPU_FILE        "/proc/stat"
 #define MEM_FILE        "/proc/meminfo"
 
+#define TEMP_FILE       "/sys/bus/platform/devices/coretemp.0/temp1_input"
+
 #define BATT_NOW        "/sys/class/power_supply/BAT0/charge_now"
 #define BATT_FULL       "/sys/class/power_supply/BAT0/charge_full"
 #define BATT_STAT       "/sys/class/power_supply/BAT0/status"
@@ -29,6 +31,7 @@
 // This is a strftime format string which is passed localtime
 #define DATE_TIME_STR   "%a %b %d, %I:%M %p"
 
+#define TempFmt "^fg()^i(/home/sanford/.xmonad/icons/temp5.xbm) ^fg(#b294bb)%dC^fg()  "
 #define BattFmt "^fg()^i(/home/sanford/.xmonad/icons/batt10.xbm) ^fg(#b294bb)%d%%^fg()  "
 #define TimeFmt "^fg()^i(/home/sanford/.xmonad/icons/clock2.xbm) %s " 
 
@@ -67,28 +70,20 @@ void displayBattery(const char* fmt)
 void displayTemp(const char* fmt)
 {
     FILE* infile;
-    long charge, full;
+    long temperature;
 
-    infile = fopen(BATT_NOW, "r");
-    fscanf(infile, "%ld\n", &charge);
+    infile = fopen(TEMP_FILE, "r");
+    fscanf(infile, "%ld\n", &temperature);
     fclose(infile);
 
-    infile = fopen(BATT_FULL, "r");
-    fscanf(infile, "%ld\n", &full);
-    fclose(infile);
-
-    /* infile = fopen(BATT_STAT, "r"); */
-    /* fscanf(infile, "%s\n", statnext); */
-    /* fclose(infile); */
-
-    int num = charge * 100 / full;
-    printf(fmt, num);
+    printf(fmt, temperature / 1000);
 }
 
 int main()
 {
     for (;;)
     {
+        displayTemp(TempFmt);
         displayBattery(BattFmt);
         displayTime(TimeFmt);
 
