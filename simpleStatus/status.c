@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-// Update Interval
+// Update Interval in seconds
 #define INTERVAL        45
 
 // Files read for system info:
@@ -29,52 +29,71 @@
 // This is a strftime format string which is passed localtime
 #define DATE_TIME_STR   "%a %b %d, %I:%M %p"
 
+#define BattFmt "^fg()^i(/home/sanford/.xmonad/icons/batt10.xbm) ^fg(#b294bb)%d%%^fg()  "
+#define TimeFmt "^fg()^i(/home/sanford/.xmonad/icons/clock2.xbm) %s " 
+
+void displayTime(const char* fmt)
+{
+    time_t current;
+    char buffer[64];
+
+    time(&current);
+    strftime(buffer, 38, DATE_TIME_STR, localtime(&current));
+
+    printf(fmt, buffer);
+}
+
+void displayBattery(const char* fmt)
+{
+    FILE* infile;
+    long charge, full;
+
+    infile = fopen(BATT_NOW, "r");
+    fscanf(infile, "%ld\n", &charge);
+    fclose(infile);
+
+    infile = fopen(BATT_FULL, "r");
+    fscanf(infile, "%ld\n", &full);
+    fclose(infile);
+
+    /* infile = fopen(BATT_STAT, "r"); */
+    /* fscanf(infile, "%s\n", statnext); */
+    /* fclose(infile); */
+
+    int num = charge * 100 / full;
+    printf(fmt, num);
+}
+
+void displayTemp(const char* fmt)
+{
+    FILE* infile;
+    long charge, full;
+
+    infile = fopen(BATT_NOW, "r");
+    fscanf(infile, "%ld\n", &charge);
+    fclose(infile);
+
+    infile = fopen(BATT_FULL, "r");
+    fscanf(infile, "%ld\n", &full);
+    fclose(infile);
+
+    /* infile = fopen(BATT_STAT, "r"); */
+    /* fscanf(infile, "%s\n", statnext); */
+    /* fclose(infile); */
+
+    int num = charge * 100 / full;
+    printf(fmt, num);
+}
+
 int main()
 {
-    char statnext[30], status[512];
-    FILE* infile;
-
-    // MAIN LOOP STARTS HERE:
     for (;;)
     {
-        status[0]='\0';
+        displayBattery(BattFmt);
+        displayTime(TimeFmt);
 
-        // Power / Battery:
-        long charge, full;
+        printf("\n");
 
-        infile = fopen(BATT_NOW,"r");
-        fscanf(infile,"%ld\n",&charge);fclose(infile);
-
-        infile = fopen(BATT_FULL,"r");
-        fscanf(infile,"%ld\n",&full);fclose(infile);
-
-        infile = fopen(BATT_STAT,"r");
-        fscanf(infile,"%s\n",statnext);fclose(infile);
-        int num = charge*100 / full;
-
-        strcat(status,"^i(/home/sanford/.xmonad/icons/batt10.xbm) ");
-
-        if (strncmp(statnext,"Charging",8) == 0)
-        {
-            sprintf(statnext,BAT_CHRG_STR,num);
-        }
-        else
-        {
-            sprintf(statnext,BAT_STR,num);
-        }
-        strcat(status,statnext);
-
-        strcat(status,"^i(/home/sanford/.xmonad/icons/clock2.xbm) ");
-
-        // Date & Time:
-        time_t current;
-        time(&current);
-        strftime(statnext,38,DATE_TIME_STR,localtime(&current));
-        strcat(status,statnext);
-
-        strcat(status," ");
-
-        printf("%s\n", status);
         fflush(stdout);
         sleep(INTERVAL);
     }
