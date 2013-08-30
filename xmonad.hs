@@ -50,15 +50,15 @@ myModMask            = mod4Mask
 myTerminal           = "urxvtc"
 myBorderWidth        = 2
 
-myWorkspaces = [ "un"
-               , "deux" 
-               , "trois" 
-               , "quatre" 
-               , "cinq" 
-               , "six" 
-               , "sept" 
-               , "huit" 
-               , "neuf" 
+myWorkspaces = [ "1st"
+               , "2nd" 
+               , "3rd" 
+               , "4th" 
+               , "5th" 
+               , "6th" 
+               , "7th" 
+               , "8th" 
+               , "9th" 
                ]
 
 myFont = "DroidSans:bold:size=8"
@@ -94,7 +94,7 @@ makeDmenu p = "dmenu_run" ++
 dmenuCmd  = makeDmenu "Run:"
 
 myXmonadBar = "dzen2 -e '' -x '0' -y '0' -w '600' -h '16' -ta 'l' -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
-myStatusBar = "conky -qc ~/.xmonad/dzenConky | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
+myStatusBar = "~/.xmonad/simpleStatus/simpleStatus | dzen2 -e '' -x '600' -w '766' -h '16' -ta r -fn '" ++ myFont ++ "' -fg '" ++ foreground ++ "' -bg '" ++ background ++ "'"
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -144,12 +144,12 @@ myManageHook = mainManageHook -- <+> namedScratchpadManageHook myScratchPads
 -- Key Bindings
 --
 
--- kill any running dzen and conky processes before executing
--- the default restart command, this is a good @M-q@ replacement.
+-- kill any running dzen and conky processes before recompiling.
+-- The -threaded switch for ghc reduces the amount of wakeups per second from xmonad.
 cleanStart :: MonadIO m => m ()
-cleanStart = spawn $ "for pid in `pgrep conky`; do kill -9 $pid; done && "
+cleanStart = spawn $ "for pid in `pgrep simpleBar`; do kill -9 $pid; done && "
                   ++ "for pid in `pgrep dzen2`; do kill -9 $pid; done && "
-                  ++ "xmonad --recompile && xmonad --restart"
+                  ++ "cd ~/.xmonad; ghc -threaded xmonad.hs; mv xmonad xmonad-x86_64-linux; xmonad --restart"
 
 addKeys :: [((ButtonMask, KeySym), X())]
 addKeys =
