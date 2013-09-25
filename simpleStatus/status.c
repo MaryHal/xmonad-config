@@ -24,16 +24,16 @@
 // Memory
 #define MEM_STR         "Free: %d%% Buffers: %d%% Cache: %ld%% "
 
-#define BAT_STR         "%d%% "     // Battery, unplugged, above BATT_LOW%
+#define BAT_STR         "%d%% "      // Battery, unplugged, above BATT_LOW%
 #define BAT_LOW_STR     "!! %d%% "   // Battery, unplugged, below BATT_LOW% remaining
-#define BAT_CHRG_STR    "%d%%C "    // Battery, when charging (plugged into AC)
+#define BAT_CHRG_STR    "%d%%C "     // Battery, when charging (plugged into AC)
 
 // This is a strftime format string which is passed localtime
 #define DATE_TIME_STR   "%a %b %d, %I:%M %p"
 
 #define TempFmt "^fg()^i(/home/sanford/.xmonad/icons/temp5.xbm) ^fg(#b294bb)%dC^fg()  "
 #define BattFmt "^fg()^i(/home/sanford/.xmonad/icons/batt10.xbm) ^fg(#b294bb)%d%%^fg()  "
-#define TimeFmt "^fg()^i(/home/sanford/.xmonad/icons/clock2.xbm) %s " 
+#define TimeFmt "^fg()^i(/home/sanford/.xmonad/icons/clock2.xbm) %s "
 
 void displayTime(const char* fmt)
 {
@@ -95,4 +95,3 @@ int main()
 
     return 0;
 }
-
