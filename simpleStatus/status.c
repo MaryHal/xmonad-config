@@ -35,7 +35,7 @@
 #define BattFmt "^fg()^i(/home/sanford/.xmonad/icons/batt10.xbm) ^fg(#b294bb)%d%%^fg()  "
 #define TimeFmt "^fg()^i(/home/sanford/.xmonad/icons/clock2.xbm) %s "
 
-void displayTime(const char* fmt)
+inline void displayTime(const char* fmt)
 {
     time_t current;
     char buffer[64];
@@ -46,7 +46,7 @@ void displayTime(const char* fmt)
     printf(fmt, buffer);
 }
 
-void displayBattery(const char* fmt)
+inline void displayBattery(const char* fmt)
 {
     FILE* infile;
     long charge, full;
@@ -67,7 +67,7 @@ void displayBattery(const char* fmt)
     printf(fmt, num);
 }
 
-void displayTemp(const char* fmt)
+inline void displayTemp(const char* fmt)
 {
     FILE* infile;
     long temperature;
