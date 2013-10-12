@@ -8,7 +8,7 @@ import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.LayoutHints
+-- import XMonad.Layout.LayoutHints
 
 import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.Warp
@@ -99,7 +99,7 @@ myStatusBar = "~/.xmonad/simpleStatus/simpleStatus | dzen2 -e '' -x '600' -w '76
 ------------------------------------------------------------------------
 -- Layouts
 --
-myLayout = layoutHintsToCenter $
+myLayout = -- layoutHintsToCenter $
            avoidStruts
            $ tiled ||| Full
     where
@@ -130,6 +130,7 @@ myManageHook = mainManageHook -- <+> namedScratchpadManageHook myScratchPads
         myCenterFloats = [ "xmessage"
                          , "zenity"
                          , "xfontsel"
+                         , "mpv"
                          ]
 
         myOtherFloats  = [ "Downloads"
@@ -164,14 +165,17 @@ addKeys =
     , ((mod4Mask              , xK_q), banishScreen LowerLeft)
     , ((mod4Mask .|. shiftMask, xK_q), spawn "")
     , ((mod4Mask .|. shiftMask .|. controlMask, xK_q), cleanStart)
-    --, ((mod4Mask .|. shiftMask, xK_q), spawn "xmonad --recompile; xmonad --restart")
-    , ((0          , xF86XK_PowerOff), spawn "~/bin/menu/shutdownmenu")
+    , ((mod4Mask .|. shiftMask .|. controlMask, xK_m), spawn "xrandr --output LVDS1 --mode 1366x768 --primary && xrandr --output VGA1 --mode 1920x1080 --right-of LVDS1")
 
     -- Multimedia keys
     , ((0             , xF86XK_AudioPrev), spawn "mpc prev -q")
     , ((0             , xF86XK_AudioNext), spawn "mpc next -q")
     , ((0             , xF86XK_AudioPlay), spawn "mpc toggle -q")
     , ((0             , xF86XK_AudioStop), spawn "mpc stop -q")
+    , ((0             , xF86XK_PowerOff), spawn "~/bin/menu/shutdownmenu")
+    -- , ((mod4Mask .|. controlMask , xK_Left) , spawn "mpc -q seek -10")
+    -- , ((mod4Mask .|. controlMask , xK_Right), spawn "mpc -q seek -10")
+
 
     -- Volume
     , ((0             , xF86XK_AudioLowerVolume), spawn "amixer -q set 'Master' '1-'")
@@ -186,6 +190,7 @@ addKeys =
     -- Other Keys
     , ((mod4Mask                  , xK_Print), spawn "scrot -e 'mv $f ~/tmp/'")
     , ((mod4Mask .|. controlMask  , xK_Print), spawn "sleep 0.2 ; scrot -s -e 'mv $f ~/tmp/'")
+
 
     -- Brightness
     , ((mod4Mask          , xK_i)   , spawn "~/bin/menu/brightnessmenu")
