@@ -8,7 +8,7 @@ import XMonad.Hooks.UrgencyHook
 
 import XMonad.Layout
 import XMonad.Layout.ResizableTile
---import XMonad.Layout.LayoutHints
+import XMonad.Layout.LayoutHints
 
 import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.Warp
@@ -99,7 +99,7 @@ myStatusBar = "~/.xmonad/simpleStatus/simpleStatus | dzen2 -e '' -x '600' -w '76
 ------------------------------------------------------------------------
 -- Layouts
 --
-myLayout = --layoutHintsToCenter $
+myLayout = layoutHintsToCenter $
            avoidStruts
            $ tiled ||| Full
     where
