@@ -61,9 +61,9 @@ myWorkspaces = [ "1st"
                , "9th" 
                ]
 
-myFont = "DroidSans:bold:size=8"
+myFont = "DroidSansFallback:bold:size=8"
 
-background   = "#1d1f21"
+background   = "#111111"
 current_line = "#282a2e"
 selection    = "#373b41"
 foreground   = "#c5c8c6"
