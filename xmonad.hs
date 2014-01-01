@@ -89,7 +89,8 @@ makeDmenu p = "dmenu_run" ++
               " -nb '" ++ background ++ "'" ++
               " -sf '" ++ purple ++ "'" ++
               " -sb '" ++ background ++ "'" ++
-              " -p  '" ++ p          ++ "'"
+              " -p  '" ++ p          ++ "'" ++
+              " -i "
 
 dmenuCmd  = makeDmenu "Run:"
 
